@@ -3,7 +3,7 @@
         this.filter('textarea').each(function () {
             var $this = $(this),
                 minHeight = $this.height(),
-                shadow = $('<div></div>').css({
+                shadow = $('<div>').css({
                     position:   'absolute',
                     top: -10000,
                     left: -10000,
@@ -13,7 +13,7 @@
                     lineHeight: $this.css('lineHeight'),
                     resize: 'none'
                 }).addClass('shadow').appendTo(document.body),
-                update = function () {
+                update = function (event) {
                     var t = this;
                     setTimeout(function () {
                         var val = t.value.replace(/</g, '&lt;')
@@ -26,7 +26,11 @@
                         }
     
                         shadow.html(val);
-                        $(t).css('height', Math.max(shadow[0].offsetHeight + 20, minHeight));
+                        $(t).css('height', Math.max(shadow[0].offsetHeight, minHeight));
+
+                        if (event !== undefined) {
+                            $(t).trigger('autogrow');
+                        }
                     }, 0);
                 };
 
