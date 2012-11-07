@@ -31,6 +31,9 @@
                         if (event !== undefined) {
                             $(t).trigger('autogrow');
                         }
+                        
+                        t.value = t.value.replace(/\n$/, '');
+                        
                     }, 0);
                 };
 
